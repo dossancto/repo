@@ -1,8 +1,18 @@
-package main;
+package main
 
-import "github.com/lu-css/repo/src/commands"
+import (
+	"os"
 
-func main(){
-  println("Hey");
-  commands.CloneRepo()
+	"github.com/lu-css/repo/src/cli"
+)
+
+func main() {
+	args := os.Args[1:]
+
+	if len(args) >= 1 {
+		cli.WithArgs(args)
+		return
+	}
+
+	cli.Interative()
 }

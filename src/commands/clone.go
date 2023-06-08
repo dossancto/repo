@@ -13,11 +13,22 @@ import (
 If userName contains a "/" automaticly clone repo.
 Otherwise guess witch repository the user wants to clone.
 */
-func CloneRepo() {
+func CloneCliRepo() {
 	userName := getGithubUser()
 	repo := getUserRepos(userName)
 
-  apis.Clone(userName, repo)
+	CloneRepo(userName, repo)
+
+}
+
+func CloneRepo(user string, repo string) {
+	out, err := apis.Clone(user, repo)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(out)
 }
 
 func getGithubUser() string {
@@ -28,7 +39,7 @@ func getGithubUser() string {
 	result, err := prompt.Run()
 
 	if err != nil {
-    log.Fatal(err)
+		log.Fatal(err)
 		return ""
 	}
 
