@@ -45,11 +45,11 @@ func ListRemotes() ([]string, error) {
 		return nil, err
 	}
 
-  remotes := linesToArray(string(out))
+	remotes := linesToArray(string(out))
 
-  if len(remotes) == 0 {
-    return nil, errors.New("No one remote.")
-  }
+	if len(remotes) == 0 {
+		return nil, errors.New("No one remote.")
+	}
 
 	return remotes, nil
 }
@@ -66,4 +66,17 @@ func linesToArray(buffer string) []string {
 	}
 
 	return lines
+}
+
+func GetActualGitUser() (string, error) {
+	cmd := exec.Command("git", "config", "user.name")
+
+	out, err := cmd.CombinedOutput()
+
+	if err != nil {
+		return "", err
+	}
+
+	user := strings.TrimSpace(string(out))
+	return user, nil
 }

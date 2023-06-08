@@ -6,10 +6,11 @@ import (
 
 	"github.com/lu-css/repo/src/apis"
 	"github.com/lu-css/repo/src/commands"
+	"github.com/lu-css/repo/src/utils"
 )
 
 func templateUrl(args []string) {
-	user := args[0]
+	user := utils.GetUser(args, 0)
 	repo := args[1]
 
 	url := apis.BuildRepoURL(user, repo)
@@ -18,9 +19,9 @@ func templateUrl(args []string) {
 
 func cloneRepo(args []string) {
 	var repo string
-	user := args[0]
+	user := utils.GetUser(args, 0)
 
-	if len(args) == 1 {
+	if len(args) <= 1 {
 		repo = commands.GetUserRepos(user)
 	} else {
 		repo = args[1]
