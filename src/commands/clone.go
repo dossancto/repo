@@ -14,8 +14,8 @@ If userName contains a "/" automaticly clone repo.
 Otherwise guess witch repository the user wants to clone.
 */
 func CloneCliRepo() {
-	userName := getGithubUser()
-	repo := getUserRepos(userName)
+	userName := GetGithubUser()
+	repo := GetUserRepos(userName)
 
 	CloneRepo(userName, repo)
 
@@ -31,7 +31,7 @@ func CloneRepo(user string, repo string) {
 	fmt.Println(out)
 }
 
-func getGithubUser() string {
+func GetGithubUser() string {
 	prompt := promptui.Prompt{
 		Label: "Github user",
 	}
@@ -46,7 +46,7 @@ func getGithubUser() string {
 	return result
 }
 
-func getUserRepos(user string) string {
+func GetUserRepos(user string) string {
 	repos, err := apis.GetAllPublicRepos(user)
 
 	templates := &promptui.SelectTemplates{

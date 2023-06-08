@@ -17,8 +17,14 @@ func templateUrl(args []string) {
 }
 
 func cloneRepo(args []string) {
+	var repo string
 	user := args[0]
-	repo := args[1]
+
+	if len(args) == 1 {
+		repo = commands.GetUserRepos(user)
+	} else {
+		repo = args[1]
+	}
 
 	commands.CloneRepo(user, repo)
 }
